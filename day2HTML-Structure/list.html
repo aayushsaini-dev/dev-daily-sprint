@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+    }
+
+    nav li {
+        float: left
+    }
+
+    nav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
+    }
+
+    nav li a:hover {
+        background-color: #111111;
+    }
+</style>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="menu">Menu</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <ul style="list-style-type: square;">
+        <li>apple
+            <ul> <!-- //nested lists -->
+                <li>grren apple</li>
+                <li> peach apple</li>
+                <li>apple bore</li>
+            </ul>
+        </li>
+        <li>banana</li>
+        <li>lichi</li>
+    </ul>
+
+    <hr>
+    <ol type="i">
+        <li>apple</li>
+        <li>banana</li>
+        <li>lichi</li>
+        <li>tea
+            <ol start="50">
+                <li>Black tea</li>
+                <li>Green tea</li>
+            </ol>
+        </li>
+    </ol>
+    <hr>
+    <dl>
+        <dt>Coffe</dt>
+        <dd>- black hot drink</dd>
+        <dt>Milk</dt>
+        <dd>- white cold drink</dd>
+    </dl>
+    <a href="div.html#felx">jump to div</a>
+</body>
+
+</html>

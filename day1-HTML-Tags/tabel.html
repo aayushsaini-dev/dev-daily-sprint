@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabels</title>
+</head>
+<style>
+     table, th, td{
+        /* border: 1px,solid, black; */
+        border-collapse:collapse;
+    }
+    th, td{
+        /* background-color: aquamarine; */
+        border-radius: 10px;
+        /* border-style: solid; */
+    }
+    tr:nth-child(even){
+        background-color: yellow;
+    }
+    td:nth-child(odd){
+        background-color: azure;
+    }
+    tr{
+        border-bottom: 1px solid black;
+    }
+    tr:hover{
+        background-color: bisque;
+    }
+</style>
+<body>
+    <table style="width: 100%;">
+        <tr>
+            <th style="width: 70%;">company</th>
+            <th>address</th>
+            <th>contact</th>
+        </tr>
+        <tr style="height: 100px;">
+            <td>anjali</td>
+            <td>google</td>
+            <td>microsoft</td>
+        </tr>
+    </table>
+<hr>
+<br>
+    <table>
+        <caption>schedule</caption>
+        <tr>
+            <!-- <th></th> -->
+            <th colspan="2">Subject</th>
+            <th>Chapter</th>
+        </tr>
+        <tr>
+            <th >monday</th>
+            <td>Science</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <th rowspan="2">tuesday</th>
+            <td>Maths</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <th>wednesday</th>
+            <td>SST</td>
+            <td>5</td>
+        </tr>
+    </table>
+    
+</body>
+</html>
