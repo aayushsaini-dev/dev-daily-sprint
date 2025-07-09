@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox-trio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        .container {
+            background: linear-gradient(135deg, #8f46d4, #30406e);
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            height: 100%;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 80%;
+        }
+
+        .box {
+            height: 100px;
+            width: 200px;
+            background-color: black;
+            color: #fff;
+            padding: 20px;
+        }
+        h3{
+            padding: 1rem;
+            text-align: center;
+        }
+        p{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="box" id="developer">
+                <h3>Developer</h3>
+                <p>build code</p>
+            </div>
+
+            <div class="box" id="learner">
+                <h3>Learner</h3>
+                <p>grow daily</p>
+            </div>
+
+            <div class="box" id="dream-chaser">
+                <h3>Dream Chaser</h3>
+                <p>Aim High</p>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
