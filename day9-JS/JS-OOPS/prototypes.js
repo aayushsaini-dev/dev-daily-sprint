@@ -18,5 +18,3 @@ Object.setPrototypeOf(tesla, genericCar)
 //console.log(`tesla`, tesla.tyre, tesla); // to get both shown own and  other object property
 
 console.log(`tesla`, Object.getPrototypeOf(tesla));
-
-
