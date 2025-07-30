@@ -1,0 +1,10 @@
+git -> software version control  github -> service 
+git status -> shows the status of repo
+
+git init -> initialize git in the folder/ repo
+
+git add -> stagging area 
+
+git coomit -m "" -> commiting the  files moves to repo stage
+
+
