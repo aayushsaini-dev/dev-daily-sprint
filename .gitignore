@@ -1,3 +1,8 @@
 .DS_Store
 code+files
-node_modules
+
+# Ignore all node_modules folders anywhere
+**/node_modules
+
+# Optional: ignore all package-lock.json files across all subprojects
+**/package-lock.json
