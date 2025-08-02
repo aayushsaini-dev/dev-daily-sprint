@@ -6,3 +6,4 @@ code+files
 
 # Optional: ignore all package-lock.json files across all subprojects
 **/package-lock.json
+**/.env

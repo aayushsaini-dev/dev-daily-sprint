@@ -1,0 +1,13 @@
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"POST\",\"url\":\"/teas\",\"status\":\"201\",\"responseTime\":\"2.677\"}","timestamp":"2025-08-02T17:54:39.309Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/teas\",\"status\":\"200\",\"responseTime\":\"0.584\"}","timestamp":"2025-08-02T17:55:13.426Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"A post request is made to add tea","timestamp":"2025-08-02T17:58:21.351Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"POST\",\"url\":\"/teas\",\"status\":\"201\",\"responseTime\":\"3.878\"}","timestamp":"2025-08-02T17:58:21.355Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"A post request is made to add tea","timestamp":"2025-08-02T17:59:29.499Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"POST\",\"url\":\"/teas\",\"status\":\"201\",\"responseTime\":\"0.898\"}","timestamp":"2025-08-02T17:59:29.501Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"A post request is made to add tea","timestamp":"2025-08-02T17:59:30.401Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"POST\",\"url\":\"/teas\",\"status\":\"201\",\"responseTime\":\"1.452\"}","timestamp":"2025-08-02T17:59:30.404Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/teas\",\"status\":\"200\",\"responseTime\":\"0.554\"}","timestamp":"2025-08-02T17:59:33.783Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/teas/4\",\"status\":\"404\",\"responseTime\":\"0.844\"}","timestamp":"2025-08-02T17:59:38.991Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"DELETE\",\"url\":\"/teas/3\",\"status\":\"204\",\"responseTime\":\"0.604\"}","timestamp":"2025-08-02T17:59:47.540Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/teas/2\",\"status\":\"200\",\"responseTime\":\"0.469\"}","timestamp":"2025-08-02T18:00:26.881Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/teas\",\"status\":\"200\",\"responseTime\":\"0.316\"}","timestamp":"2025-08-02T18:00:40.477Z"}
