@@ -1,0 +1,53 @@
+title Library management
+
+users [icon:users] {
+  _id string pk
+  name string
+}
+
+book [icon: book-open] {
+  _id string pk
+  name string
+  author string
+  price number
+  shelfId string 
+  categoryId string 
+  addedBy string
+  isAvailable boolean
+}
+
+borrowings [icon: list]{
+  _id string pk
+  userId string 
+  bookId string 
+  borrowedAt Date
+  submittedAt Date
+}
+
+shelf [icon : table]{
+  _id string pk
+  position string
+  updatedBy string
+  createdBy string
+}
+
+categories  [icon: package]{
+  _id string pk
+  genre string
+  createdBy string
+  updatedBy string
+}
+
+librarian [icon: user] {
+  _id string pk
+  name string
+  email string
+  address string
+}
+book.shelfId > shelf._id
+book.categoryId - categories._id
+book.addedBy < librarian._id
+
+borrowings.userId > users._id
+borrowings.bookId > book._id
+
