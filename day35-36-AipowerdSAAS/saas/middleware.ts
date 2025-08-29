@@ -11,6 +11,18 @@ const isPublicRoute = createRouteMatcher([
 const isPublicApiRoute = createRouteMatcher(["/api/videos"]);
 
 export default clerkMiddleware(async (auth, req) => {
+  // --- Start Debugging ---
+  const path = req.nextUrl.pathname;
+  const isPublic = isPublicRoute(req);
+  const isPublicApi = isPublicApiRoute(req);
+
+  console.log("--- MIDDLEWARE DEBUG ---");
+  console.log("Request Path:", path);
+  console.log("isPublicRoute:", isPublic);
+  console.log("isPublicApiRoute:", isPublicApi);
+  console.log("------------------------");
+  // --- End Debugging ---
+
   const { userId } = await auth();
   const currentUrl = new URL(req.url);
   const isHomePage = currentUrl.pathname === "/home";
