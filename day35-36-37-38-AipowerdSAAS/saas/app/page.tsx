@@ -1,12 +1,14 @@
-export default function Home() {
+import { redirect } from "next/navigation";
+
+export default function RootPage() {
+  // This page's only job is to redirect all traffic to the public home page.
+  // The middleware will then protect other routes as needed.
+  redirect("/home");
+
+  // This fallback UI is technically unreachable but good practice to have.
   return (
-    <main className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="p-6 shadow-xl rounded-xl bg-base-100">
-        <h1 className="text-3xl font-bold text-primary">
-          🚀 Tailwind v4 + DaisyUI Ready!
-        </h1>
-        <button className="btn btn-primary mt-4">Click Me</button>
-      </div>
-    </main>
+    <div className="flex h-screen w-full items-center justify-center bg-gray-950">
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent"></div>
+    </div>
   );
 }

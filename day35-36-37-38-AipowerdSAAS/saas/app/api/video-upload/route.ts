@@ -26,16 +26,6 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  if (
-    !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
-    !process.env.CLOUDINARY_API_KEY ||
-    !process.env.CLOUDINARY_API_SECRET
-  ) {
-    return NextResponse.json(
-      { error: "Cloudinary credentials not found" },
-      { status: 500 }
-    );
-  }
 
   try {
     const formData = await request.formData();
@@ -58,6 +48,17 @@ export async function POST(request: NextRequest) {
             resource_type: "video",
             folder: "video-uploads",
             transformation: [{ quality: "auto", fetch_format: "mp4" }],
+            // --- FIX: Eagerly generate the preview on upload ---
+            eager: [
+              {
+                width: 400,
+                height: 225,
+                crop: "fill",
+                gravity: "auto",
+                effect: "preview:duration_15",
+              },
+            ],
+            eager_async: true, // Process this in the background
           },
           (error, result) => {
             if (error) reject(error);
@@ -69,36 +70,20 @@ export async function POST(request: NextRequest) {
     );
 
     // Check if same video (by publicId) already exists for the same user
-    const existingVideo = await prisma.video.findFirst({
-      where: {
-        publicId: result.public_id,
-      },
-    });
-
-    if (existingVideo) {
-      return NextResponse.json(
-        { error: "WTF moment 😅 This video already exists!" },
-        { status: 409 }
-      );
-    }
-
-// Use cloudinary's secure_url (always works for preview + download)
-    const videoUrl = result.secure_url
-
     const video = await prisma.video.create({
       data: {
         title,
         description,
         publicId: result.public_id,
-        originalSize: Number(originalSize), // ensure Int
-        compressedSize: result.bytes, // already Int from Cloudinary
+        originalSize: Number(originalSize),
+        compressedSize: result.bytes,
         duration: result.duration ? Math.floor(Number(result.duration)) : 0,
-        videoUrl,
+        videoUrl: result.secure_url,
       },
     });
     return NextResponse.json(video, { status: 201 });
   } catch (error) {
-    console.log("UPload video failed", error);
+    console.log("Upload video failed", error);
     return NextResponse.json({ error: "Upload video failed" }, { status: 500 });
   } finally {
     await prisma.$disconnect();

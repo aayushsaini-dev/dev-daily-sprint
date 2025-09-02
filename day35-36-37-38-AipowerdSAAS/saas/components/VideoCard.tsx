@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { getCldImageUrl, getCldVideoUrl } from "next-cloudinary";
+import React, { useCallback } from "react";
+import { getCldImageUrl } from "next-cloudinary";
 import { Download, Clock, FileDown, FileUp } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -9,15 +9,14 @@ import { Video } from "@prisma/client";
 
 dayjs.extend(relativeTime);
 
+// Define props with a simplified onDownload signature
 interface VideoCardProps {
   video: Video;
-  onDownload: (url: string, title: string) => void;
+  onDownload: () => void;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [previewError, setPreviewError] = useState(false);
-
+// Type the component directly instead of using React.FC for better type inference
+const VideoCard = ({ video, onDownload }: VideoCardProps) => {
   const getThumbnailUrl = useCallback((publicId: string) => {
     return getCldImageUrl({
       src: publicId,
@@ -28,23 +27,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
       format: "jpg",
       quality: "auto",
       assetType: "video",
-    });
-  }, []);
-
-  const getFullVideoUrl = useCallback((publicId: string) => {
-    return getCldVideoUrl({
-      src: publicId,
-      width: 1920,
-      height: 1080,
-    });
-  }, []);
-
-  const getPreviewVideoUrl = useCallback((publicId: string) => {
-    return getCldVideoUrl({
-      src: publicId,
-      width: 400,
-      height: 225,
-      rawTransformations: ["e_preview:duration_15:max_seg_dur_9:min_seg_dur_1"],
     });
   }, []);
 
@@ -62,82 +44,61 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
     (1 - Number(video.compressedSize) / Number(video.originalSize)) * 100
   );
 
-  useEffect(() => {
-    setPreviewError(false);
-  }, [isHovered]);
-
-  const handlePreviewError = () => {
-    setPreviewError(true);
-  };
-
   return (
-    <div
-      className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <figure className="aspect-video relative">
-        {isHovered ? (
-          previewError ? (
-            <div className="w-full h-full flex items-center justify-center bg-gray-200">
-              <p className="text-red-500">Preview not available</p>
-            </div>
-          ) : (
-            <video
-              src={getPreviewVideoUrl(video.publicId)}
-              autoPlay
-              muted
-              loop
-              className="w-full h-full object-cover"
-              onError={handlePreviewError}
-            />
-          )
-        ) : (
-          <img
-            src={getThumbnailUrl(video.publicId)}
-            alt={video.title}
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute bottom-2 right-2 bg-base-100 bg-opacity-70 px-2 py-1 rounded-lg text-sm flex items-center">
-          <Clock size={16} className="mr-1" />
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+      <figure className="aspect-video relative bg-gray-200">
+        <img
+          src={getThumbnailUrl(video.publicId)}
+          alt={video.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-md flex items-center gap-1">
+          <Clock size={14} />
           {formatDuration(video.duration)}
         </div>
       </figure>
-      <div className="card-body p-4">
-        <h2 className="card-title text-lg font-bold">{video.title}</h2>
-        <p className="text-sm text-base-content opacity-70 mb-4">
+
+      <div className="p-4 space-y-3">
+        <h2 className="text-lg font-semibold line-clamp-1 text-gray-900">
+          {video.title}
+        </h2>
+        <p className="text-sm text-gray-700 line-clamp-2">
           {video.description}
         </p>
-        <p className="text-sm text-base-content opacity-70 mb-4">
+        <p className="text-xs text-gray-600">
           Uploaded {dayjs(video.createdAt).fromNow()}
         </p>
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <div className="flex items-center">
-            <FileUp size={18} className="mr-2 text-primary" />
+        <div className="grid grid-cols-2 gap-4 text-sm mt-2">
+          <div className="flex items-center gap-2">
+            <FileUp size={16} className="text-blue-600" />
             <div>
-              <div className="font-semibold">Original</div>
-              <div>{formatSize(Number(video.originalSize))}</div>
+              <div className="font-medium text-gray-900">Original</div>
+              <div className="text-gray-600">
+                {formatSize(Number(video.originalSize))}
+              </div>
             </div>
           </div>
-          <div className="flex items-center">
-            <FileDown size={18} className="mr-2 text-secondary" />
+          <div className="flex items-center gap-2">
+            <FileDown size={16} className="text-green-600" />
             <div>
-              <div className="font-semibold">Compressed</div>
-              <div>{formatSize(Number(video.compressedSize))}</div>
+              <div className="font-medium text-gray-900">Compressed</div>
+              <div className="text-gray-600">
+                {formatSize(Number(video.compressedSize))}
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center mt-4">
-          <div className="text-sm font-semibold">
+        <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+          <div className="text-sm font-medium text-gray-800">
             Compression:{" "}
-            <span className="text-accent">{compressionPercentage}%</span>
+            <span className="text-blue-600 font-bold">
+              {compressionPercentage}%
+            </span>
           </div>
           <button
-            className="btn btn-primary btn-sm"
-            onClick={() =>
-              onDownload(getFullVideoUrl(video.publicId), video.title)
-            }
+            className="flex items-center justify-center gap-1 rounded-lg bg-blue-600 text-white px-3 py-1.5 text-sm hover:bg-blue-700 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
+            onClick={onDownload}
+            disabled={!video.videoUrl}
           >
             <Download size={16} />
           </button>
