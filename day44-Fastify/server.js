@@ -2,6 +2,7 @@ require("dotenv").config();
 const path = require("path");
 const fastify = require("fastify")({ logger: true });
 const fastifyEnv = require("@fastify/env");
+const { request } = require("http");
 
 // register plugins
 fastify.register(require("@fastify/cors"));
@@ -19,9 +20,44 @@ fastify.register(require("@fastify/env"), {
   },
 });
 
+//register custom plugins
+fastify.register(require("./plugins/mongodb"));
+
 // Declare a route
 fastify.get("/", function (request, reply) {
   reply.send({ hello: "world" });
+});
+
+// test db connection
+fastify.get("/test-db", async (request, reply) => {
+  try {
+    const mongoose = fastify.mongoose;
+    const connectionState = mongoose.connection.readyState;
+
+    let status = "";
+    switch (connectionState) {
+      case 0:
+        status = "disconnected";
+        break;
+      case 1:
+        status = "connected";
+        break;
+      case 2:
+        status = "connecting";
+        break;
+      case 3:
+        status = "disconnecting";
+        break;
+      default:
+        status = "unknown";
+        break;
+    }
+    reply.send({ database: status });
+  } catch (error) {
+    fastify.log.error(error);
+    reply.status(500).send({ error: "Database connection failed" });
+    process.exit(1);
+  }
 });
 
 // Run the server
