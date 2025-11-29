@@ -8,8 +8,8 @@ exports.register = async (request, reply) => {
     const { name, email, password, country } = request.body;
     // validate fields
     const hashedPassword = await bcrypt.hash(password, 12);
-    new User({ name, email, password: hashedPassword, country });
-    await User.save();
+    const user = new User({ name, email, password: hashedPassword, country });
+    await user.save();
     reply.code(201).send({ message: "user registerd successfully" });
   } catch (error) {
     reply.send(err);

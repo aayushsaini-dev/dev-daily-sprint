@@ -7,6 +7,11 @@ const { request } = require("http");
 // register plugins
 fastify.register(require("@fastify/cors"));
 fastify.register(require("@fastify/sensible"));
+fastify.register(require("@fastify/multipart"));
+fastify.register(require("@fastify/static"), {
+  root: path.join(__dirname, "uploads"),
+  prefix: "/uploads/",
+});
 fastify.register(require("@fastify/env"), {
   dotenv: true,
   schema: {
@@ -26,6 +31,7 @@ fastify.register(require("./plugins/jwt"));
 
 //register routes
 fastify.register(require("./routes/auth"), { prefix: "/api/auth" });
+fastify.register(require("./routes/thumbnail"), { prefix: "/api/thumbnail" });
 
 // Declare a route
 fastify.get("/", function (request, reply) {
@@ -72,7 +78,7 @@ const start = async () => {
       `Server is running at http://localhost${process.env.PORT}`
     );
   } catch (error) {
-    fastify.log.error(err);
+    fastify.log.error(error);
     process.exit(1);
   }
 };
